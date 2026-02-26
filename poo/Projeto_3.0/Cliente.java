@@ -1,18 +1,18 @@
-
 import javax.swing.JOptionPane;
 
 public class Cliente extends Pessoa {
 
-    //Atributos da classe
+    private static final int LIMITE_CLIENTES = 100;
+
+    // Atributos da classe
     private int idt = 0;
     private int qtdClientes = 0;
 
-    private String[] nomeCliente = new String[100];
-    private int[] idadeCliente = new int[100];
-    private String[] cpfCliente = new String[100];
+    private String[] nomeCliente = new String[LIMITE_CLIENTES];
+    private int[] idadeCliente = new int[LIMITE_CLIENTES];
+    private String[] cpfCliente = new String[LIMITE_CLIENTES];
 
-
-    //Métodos construtores
+    // Métodos construtores
     public Cliente() {
     }
 
@@ -24,11 +24,9 @@ public class Cliente extends Pessoa {
         this.nomeCliente = nomeCliente;
         this.idadeCliente = idadeCliente;
         this.cpfCliente = cpfCliente;
- 
     }
 
-
-    //Métodos de acesso
+    // Métodos de acesso
     public int getIdt() {
         return idt;
     }
@@ -69,10 +67,15 @@ public class Cliente extends Pessoa {
         this.cpfCliente = cpfCliente;
     }
 
-
-    //Método para cadastrar clientes
+    // Método para cadastrar clientes
     public int cadastrarCliente() {
         int i = this.idt;
+
+        if (i < 0 || i >= LIMITE_CLIENTES) {
+            JOptionPane.showMessageDialog(null, "Limite de clientes cadastrados atingido.");
+            return qtdClientes;
+        }
+
         nomeCliente[i] = super.getNome();
         idadeCliente[i] = super.getIdade();
         cpfCliente[i] = super.getCpf();
@@ -85,8 +88,7 @@ public class Cliente extends Pessoa {
         System.out.println(nomeCliente[i] + "\t" + idadeCliente[i] + "\t" + cpfCliente[i]);
     }
 
-
-    //Método para consultar clientes
+    // Método para consultar clientes
     public void consultarPessoa() {
         System.out.println("\n\n \t\tClientes Cadastrados\n\n");
         System.out.println("Nome\tIdade\tCPF");
@@ -94,7 +96,4 @@ public class Cliente extends Pessoa {
             relatorioDeClientes(i);
         }
     }
-
- 
-
 }
